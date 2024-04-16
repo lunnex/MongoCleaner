@@ -53,9 +53,7 @@ def delete_account(db, account, eps):
 
 
 def log_with_service_name(service_id, account, eps, service_params):
-    get_service_name(service_id)
-
-    service_name = buffer[service_id]
+    service_name = get_service_name(service_id)
     acc = account["_id"]["Account"]
     params = service_params["Value"][:13]
     with open("E:\\DeletedRows.txt", "a") as file:
@@ -69,6 +67,7 @@ def get_service_name(service_id):
         query = f"SELECT PaymentDestinationName from PaymentDestinations where PaymentDestinationID = {service_id}"
         service_name = str(connection.execute(query).fetchone()[0])
         buffer[service_id] = service_name
+    return buffer[service_id]
 
 
 dbs = client.list_database_names()[2:]
